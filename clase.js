@@ -1,29 +1,29 @@
 // //Reto 1
-// console.log("Mensaje 1");
-// setTimeout( () => {
-//     console.log("Mensaje 2");
-//     console.log("Mensaje 3");
-// }, 3000)
+console.log("Mensaje 1");
+setTimeout( () => {
+    console.log("Mensaje 2");
+    console.log("Mensaje 3");
+}, 3000)
 
 // //Reto 2
 const fs = require('fs');
 
-// let persona1 = {
-//     "name" : "Pedro",
-//     "surname" : "Benítez",
-//     "age" : 45
-// }
+let persona1 = {
+    "name" : "Pedro",
+    "surname" : "Benítez",
+    "age" : 45
+}
 
-// let string1 = JSON.stringify(persona1, null, 2);
- 
-// setTimeout (
-//     () => {
-//         let data = fs.readFileSync("./persona.json", "utf-8");
-//         console.log(data);
-// }
-// , 2000)
+function escribir (path, persona) {
+    fs.writeFile(path, JSON.stringify(persona, null, 2), () => {
+        fs.readFile(path, (err, data) => {
+            const readObject = JSON.parse(data);
+            console.log(readObject);
+        })
+    })
+}
 
-// fs.writeFileSync("persona.json", string1);
+escribir("persona.json", persona1);
 
 //Reto 3
 const readline = require("readline");
@@ -41,16 +41,7 @@ rl.question("¿Nombre?: ", function(answer1) {
                 "surname" : answer2,
                 "age" : answer3
             };
-            let string2 = JSON.stringify(persona2, null, 2);
-            setTimeout (
-                () => {
-                    let data = fs.readFileSync("./persona2.json", "utf-8");
-                    console.log(data);
-            }
-            , 2000)
-            
-            fs.writeFileSync("./persona2.json", string2);
-            // rl.write(string2)
+            escribir("persona.json", persona2);
             rl.close();
         });
     });
